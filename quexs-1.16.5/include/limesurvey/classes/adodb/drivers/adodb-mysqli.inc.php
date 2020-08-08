@@ -52,8 +52,8 @@ class ADODB_mysqli extends ADOConnection {
 	var $sysTimeStamp = 'NOW()';
 	var $hasTransactions = true;
 	var $forceNewConnect = false;
-	var $poorAffectedRows = true;
-	var $clientFlags = 0;
+	var $poorAffectedRows = true;	
+	var $clientFlags = MYSQLI_CLIENT_SSL;		//20200807 horj: this was		var $clientFlags = 0;
 	var $substr = "substring";
 	var $port = 3306; //Default to 3306 to fix HHVM bug
 	var $socket = ''; //Default to empty string to fix HHVM bug
@@ -62,6 +62,14 @@ class ADODB_mysqli extends ADOConnection {
 	var $optionFlags = array(array(MYSQLI_READ_DEFAULT_GROUP,0));
 	var $arrayClass = 'ADORecordSet_array_mysqli';
 	var $multiQuery = false;
+	
+	// 20200807 horj: copy/pasted from newer version of this driver from official repo: https://github.com/ADOdb/ADOdb/blob/d5ad74c4a7dfd9d43e4623fad8654fe4a2403d67/drivers/adodb-mysqli.inc.php
+	// in an attempt to add 'ssl' functionality (certificate '/var/www/html/BaltimoreCyberTrustRoot.crt.pem' is downloaded during build of image, see Dockerfile)
+	var $ssl_key = null;
+	var $ssl_cert = null;
+	var $ssl_ca = "/var/www/html/BaltimoreCyberTrustRoot.crt.pem";
+	var $ssl_capath = null;
+	var $ssl_cipher = null;
 
 	function __construct()
 	{
@@ -111,9 +119,21 @@ class ADODB_mysqli extends ADOConnection {
 
 		//http ://php.net/manual/en/mysqli.persistconns.php
 		if ($persist && PHP_VERSION > 5.2 && strncmp($argHostname,'p:',2) != 0) $argHostname = 'p:'.$argHostname;
+	
+
+		//// 20200807 horj: copy/pasted from newer version of this driver from official repo: https://github.com/ADOdb/ADOdb/blob/d5ad74c4a7dfd9d43e4623fad8654fe4a2403d67/drivers/adodb-mysqli.inc.php
+		//// in an attempt to add 'ssl' functionality (certificate '/var/www/html/BaltimoreCyberTrustRoot.crt.pem' is downloaded during build of image, see Dockerfile)
+		// SSL Connections for MySQLI
+		if ($this->ssl_key || $this->ssl_cert || $this->ssl_ca || $this->ssl_capath || $this->ssl_cipher) {
+			mysqli_ssl_set($this->_connectionID, $this->ssl_key, $this->ssl_cert, $this->ssl_ca, $this->ssl_capath, $this->ssl_cipher);
+		}
+
+		// 20200807 horj: in the micosoft doc the ssl-connection is made like this:
+		// mysqli_real_connect($conn, 'mydemoserver.mysql.database.azure.com', 'myadmin@mydemoserver', 'yourpassword', 'quickstartdb', 3306, MYSQLI_CLIENT_SSL);  
+		// So I added MYSQLI_CLIENT_SSL to clientFlags in top of this file
 
 		#if (!empty($this->port)) $argHostname .= ":".$this->port;
-		$ok = mysqli_real_connect($this->_connectionID,
+		$ok = @mysqli_real_connect($this->_connectionID,
 					$argHostname,
 					$argUsername,
 					$argPassword,
@@ -121,7 +141,7 @@ class ADODB_mysqli extends ADOConnection {
 					# PHP7 compat: port must be int. Use default port if cast yields zero
 					(int)$this->port != 0 ? (int)$this->port : 3306,
 					$this->socket,
-					$this->clientFlags);
+					$this->clientFlags);				
 
 		if ($ok) {
 			if ($argDatabasename)  return $this->SelectDB($argDatabasename);

@@ -109,29 +109,32 @@ if (is_numeric($socket)) {
 	$socket = null;
 }
 
-$maxTries = 10;
+$maxTries = 5;
 do {
-	$mysql = new mysqli($host, $argv[2], $argv[3], '', $port, $socket);
-	if ($mysql->connect_error) {
-		fwrite($stderr, "\n" . 'MySQL Connection Error: (' . $mysql->connect_errno . ') ' . $mysql->connect_error . "\n");
-		--$maxTries;
-		if ($maxTries <= 0) {
-			exit(1);
-		}
-		sleep(3);
-	}
-} while ($mysql->connect_error);
+    $con = mysqli_init();
+    mysqli_ssl_set($con,NULL,NULL,"/var/www/html/BaltimoreCyberTrustRoot.crt.pem",NULL,NULL);
+    //$mysql = mysqli_real_connect($con,$host, $argv[2], $argv[3], '', $port, $socket, MYSQLI_CLIENT_SSL_DONT_VERIFY_SERVER_CERT);
+	$mysql = mysqli_real_connect($con,$host, $argv[2], $argv[3], '', $port, $socket, MYSQLI_CLIENT_SSL);
+        if (!$mysql) {
+                fwrite($stderr, "\n" . 'MySQL Connection Errortje: (' . $mysql->connect_errno . ') ' . $mysql->connect_error . "\n");
+                --$maxTries;
+                if ($maxTries <= 0) {
+                        exit(1);
+                }
+                sleep(3);
+        }
+} while (!$mysql);
 
-if (!$mysql->query('CREATE DATABASE IF NOT EXISTS `' . $mysql->real_escape_string($argv[4]) . '`')) {
-	fwrite($stderr, "\n" . 'MySQL "CREATE DATABASE" Error: ' . $mysql->error . "\n");
-	$mysql->close();
+if (!$con->query('CREATE DATABASE IF NOT EXISTS `' . $con->real_escape_string($argv[4]) . '`')) {
+	fwrite($stderr, "\n" . 'MySQL "CREATE DATABASE" Error: ' . $con->error . "\n");
+	$con->close();
 	exit(1);
 }
 
 // check if database populated
 
-if (!$mysql->query('SELECT COUNT(*) AS C FROM ' . $mysql->real_escape_string($argv[4]) . '.outcome')) {
-    fwrite($stderr, "\n" . 'Cannot find queXS database. Will now populate... ' . $mysql->error . "\n");
+if (!$con->query('SELECT COUNT(*) AS C FROM ' . $con->real_escape_string($argv[4]) . '.outcome')) {
+    fwrite($stderr, "\n" . 'Cannot find queXS database. Will now populate... ' . $con->error . "\n");
 
     $command = 'mysql'
         . ' --host=' . $host
@@ -152,14 +155,14 @@ if (!$mysql->query('SELECT COUNT(*) AS C FROM ' . $mysql->real_escape_string($ar
 }
 
 if (!empty($argv[5])) {
-    if ($mysql->query('UPDATE ' . $mysql->real_escape_string($argv[4]) . '.users SET password = \'' . $mysql->real_escape_string($argv[5]) . '\' WHERE uid = 1')) {
+    if ($con->query('UPDATE ' . $con->real_escape_string($argv[4]) . '.users SET password = \'' . $con->real_escape_string($argv[5]) . '\' WHERE uid = 1')) {
 	    fwrite($stderr, "\n" . 'Updated queXS admin password.' . "\n");
 	} else {
 	    fwrite($stderr, "\n" . 'Failed to update admin password.' .  "\n");
 	}
 }
 
-$mysql->close();
+$con->close();
 EOPHP
 
 #Run system sort processes

@@ -2,7 +2,7 @@
 
 FROM php:7.3-apache
 
-# 20200805 horj: dit is de enige aangepaste regel. Heb aanpassingen gedaan in enkele bestanden van de oorspronkelijke code (zie github commits), 
+# 20200805 horj: Heb aanpassingen gedaan in enkele bestanden van de oorspronkelijke code (zie github commits), 
 # zodat de interface voor de bellers gelijk is aan lokaal (waar diezelfde aanpassingen destijds ook gedaan zijn)
 # ENV DOWNLOAD_URL https://master.dl.sourceforge.net/project/quexs/quexs/quexs-1.16.5/quexs-1.16.5.zip
 ENV DOWNLOAD_URL https://github.com/Joost1982/quexs/raw/master/quexs-1.16.5.zip
@@ -49,6 +49,11 @@ RUN { \
 		echo 'max_execution_time=120'; \
         echo 'date.timezone=UTC'; \
 	} > /usr/local/etc/php/conf.d/uploads.ini
+
+#20200807 horj: download CACert for ssl connecttion to Azure database (see: https://docs.microsoft.com/en-us/azure/mysql/howto-configure-ssl)
+RUN set -x \
+	&& curl -o /var/www/html/BaltimoreCyberTrustRoot.crt.pem -fsL "https://www.digicert.com/CACerts/BaltimoreCyberTrustRoot.crt.pem"
+	
 
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN ln -s usr/local/bin/docker-entrypoint.sh /entrypoint.sh # backwards compat

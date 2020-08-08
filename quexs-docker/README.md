@@ -1,4 +1,7 @@
-# What is queXS? [20200805 horj: alle bestanden copy/paste van https://github.com/adamzammit/quexs-docker]
+20200805 horj: original code https://github.com/adamzammit/quexs-docker
+This repo is to keep track of the changes I've made to the original code (see commits) and for our custom Docker image.
+
+# What is queXS? 
 
 [queXS](https://quexs.acspri.org.au/) is a free and open source Computer Assisted Telephone Interviewing (CATI) system based on PHP and MySQL, including LimeSurvey. 
 
