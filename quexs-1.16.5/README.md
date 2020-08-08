@@ -1,3 +1,7 @@
+20200805 jvdh: 
+Original sourcecode: https://master.dl.sourceforge.net/project/quexs/quexs/quexs-1.16.5/quexs-1.16.5.zip
+This repo is to keep track of the changes I've made to the original code (see commits) and for our custom Docker image.
+
 #queXS
 
 An Open Source, web based, CATI system

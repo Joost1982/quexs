@@ -145,7 +145,10 @@ if (!defined('QUEXS_PATH')) define('QUEXS_PATH', '/quexs/');
  */
 if (!defined('QUEXS_PORT')) define('QUEXS_PORT', '');
 
-$protocol = "http://";
+/* $protocol = "http://"; */
+$protocol = "https://";
+/* 20200806 horj: ik heb 'HTTPS Only' geactiveerd in Azure en als je hierboven 'http' laat staan kom je in een oneindige redirect loop bij het inloggen op de admin pagina. */
+/* (quexs maakt nl standaard http van de url na de POST request en Azure wil je naar https hebben, waardoor je weer uitkomt bij het begin) */
 
 if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) 
 {
