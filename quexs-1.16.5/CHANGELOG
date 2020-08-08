@@ -1,0 +1,1030 @@
+queXS 1.16.5 - Changes since 1.16.4
+
+Fixed bug: queXS sample download via LimeSurvey not available with MySQL Strict Mode enabled
+
+queXS 1.16.4 - Changes since 1.16.3
+
+Updated translations - thank you!
+
+queXS 1.16.3 - Changes since 1.16.2
+
+Fixed bug:  make sure sql_mode is set the way queXS expects it
+Fixed bug: Set standard order for samples and questionnaires
+Fixed bug: Order sample list the same way as for other items (most recent first)
+Fixed bug: Only display active interviewers when creating an appointment
+Fixed bug: Global settings in LimeSurvey being ignored on PHP7
+
+queXS 1.16.2 - Changes since 1.16.1
+
+Fixed bug: Make compatible with Adodb 5.21
+
+New feature: Auto close and code a case on no answer / disconnected
+
+queXS 1.16.1 - Changes since 1.16.0
+
+Fixed bug: incompatibility with PHP 7.2
+Fixed bug: My appointments table obscured in alternate interface
+
+queXS 1.16.0 - Changes since 1.15.10
+
+Fixed issue: Extension column not wide enough for long extensions
+Fixed issue: System sorting giving low priority where some quotas exist and not others
+Fixed issue: Database queries slow when downloading metadata
+
+New feature: Assign cases to any operator to be called next in queue
+New feature: Unassign all cases in the queue in one click
+
+Database changes:
+ALTER TABLE `extension` CHANGE `extension` `extension` CHAR( 20 ) NOT NULL;
+ALTER TABLE `sample_var` ADD INDEX ( `var_id` );
+
+queXS 1.15.10 - Changes since 1.15.9
+
+Fixes some bugs including optimising the questionnaire outcome page queries. Translations have also been updated (Thank you!)
+
+Fixed issue: Missing number of records per page in sample search
+Fixed issue: Unable to un-assign cases when cases in case queue and extensions set to automatically unassign
+Fixed issue: Questionnaire outcomes page slow with many shifts
+
+Database changes:
+ALTER TABLE `shift` ADD INDEX ( `start` );
+ALTER TABLE `shift` ADD INDEX ( `end` );
+
+queXS 1.15.9 - Changes since 1.15.8
+
+Fixes various bugs
+
+Fixed issue: Max call attempts outcome overriding Refusal outcomes
+Fixed issue: Stale cases not ending if technically still on a call
+Fixed issue: GET requests when adding case notes can cause duplicate requests
+Fixed issue: Not enough sample detail in assign outcomes to cases page
+
+queXS 1.15.8 - Changes since 1.15.7
+
+Quick bug fix for missing file in release
+
+Fixed issue: Missing overallperformance.php file
+
+queXS 1.15.7 - Changes since 1.15.6
+
+A new overall performance report has been added along with the ability to download the searched portion of the sample to a file.
+
+New feature: Overall performance report
+New feature: Download searched sample to file
+New feature: Added docker-compose template
+
+Fixed issue: Performance reporting with unended calls has undefined result (was using NOW())
+Fixed issue: Total call time limited to MySQL SEC_TO_TIME function
+
+queXS 1.15.6 - Changes since 1.15.5
+
+Various bug fixes (see below), along with the ability to add records to an existing sample.
+
+Fixed issue: Data output including shift reports failing
+Fixed issue: Missing appointments displaying even where currently assigned to an operator
+Fixed issue: lp:1703319 QUEXS_URL Address Defenition
+Fixed issue: lp:1702874 DEFAULT_LOCALE not defined on admin
+
+New feature: Add records to an existing sample
+
+Translations have also been updated - thank you!
+
+queXS 1.15.5 - Changes since 1.15.4
+
+A release to fix quotas set within Limesurvey (broken as of 1.14.0). Also fixes to supervisor appointment creation and display.
+
+Fixed issue: Fatal error in rs_quota_end
+Fixed issue: Limesurvey quotas not working
+Fixed issue: Default end of appointment is in 10 years (changed to 1 hour)
+Fixed issue: Display appointments failing if call attempt auto removed (supervisor page)
+
+queXS 1.15.4 - Changes since 1.15.3
+
+This release fixes bugs with the display of appointments for the administrator and the sample searching function.
+
+Fixed issue: Display appointments failing if call attempt auto removed
+Fixed issue: Sample search not working with large number of columns
+
+Translations have also been updated - thanks again for your contributions!
+
+queXS 1.15.3 - Changes since 1.15.2
+
+This release fixes some bugs and adds some features including greatly speeding up sample searching
+
+New feature: Allow selection of outcome code when generating cases
+New feature: Decide to create cases whether email valid or not
+New feature: Server side sample querying to speed up sample searching
+
+Fixed issue: Can't delete sample
+Fixed issue: Case status incorrectly reporting time when case available
+
+Translations have also been updated - thank you for your contributions!
+
+queXS 1.15.2 - Changes since 1.15.1
+
+This release fixes some bugs found since 1.15.1
+
+Fixed issue: Not opting out of web when opting out of CATI
+Fixed issue: Refreshing appointment screen added more appointments
+Fixed issue: Timeslot scheduling not working where no calls yet in timeslot 
+Fixed issue: Case sometimes ends unintentionally due to page requests
+
+queXS 1.15.1 - Changes since 1.15.0
+
+This release supports PHP 7 (ADODB has been updated). Administrators can assign sample records to cases where not yet assigned. 
+
+New feature: Assign sample records to cases via search function
+
+Fixed issue: Make sure call and call attempt records created when creating cases
+Fixed issue: Add support for PHP7, update ADODB
+
+queXS 1.15.0 - Changes since 1.14.4
+
+This release contains a weighted timeslot feature to allow for varying numbers of attempts in particular timeslots, 
+as well as features and fixes to web/CATI mode integration.
+
+New feature: Weighted timeslots (allow more attempts in particular timeslots)
+New feature: Allow for tokens to be imported in a queXS sample
+
+Fixed issue: Database structure not optimised for sample_var_import_restrict table
+Fixed issue: Cases being generated without a valid email address when importing to Limesurvey
+Fixed issue: Limesurvey save form not displaying
+Fixed issue: Limesurvey welcome screen not displaying
+Fixed issue: Admin permissions not propogating to Limesurvey
+Fixed issue: Mode of delivery (single page, group by group, etc) not determined if no token in queXS
+
+Database changes required:
+
+INSERT INTO `sample_var_type` (`type`, `description`, `table`) VALUES(9, 'Token', '');
+ALTER TABLE `sample_import_var_restrict` ADD INDEX ( `var` ) ;
+ALTER TABLE `sample_import_var_restrict` ADD INDEX ( `sample_import_id` ) ;
+ALTER TABLE `questionnaire_timeslot` ADD `weight` INT( 11 ) NOT NULL DEFAULT '1';
+ALTER TABLE `questionnaire_sample_timeslot` ADD `weight` INT( 11 ) NOT NULL DEFAULT '1';
+
+
+queXS 1.14.4 - Changes since 1.14.3
+
+Fourth bug fix release.
+
+Fixed issue: Wrong template appearing for self complete respondents
+Fixed issue: Appointment minimum time was 15 minutes
+Fixed issue: Admin page failing to appear due to PHP notice
+
+Translations have also been updated - thank you again!
+
+queXS 1.14.3 - Changes since 1.14.2
+
+The third bug fix release for the 1.14 series of queXS.
+
+Fixed issue: More than 2 character long locale code not being recognised
+Fixed issue: Method return value error
+Fixed issue: Numbers starting with 0 were being stripped
+Fixed issue: Appointments not working when no shifts scheduled and local timezone is different from respondent
+Fixed issue: lp:1620421 SQL not compatible with ONLY_FULL_GROUP_BY mode
+
+New feature: Allow operators to see upcoming appointments and assign to themselves if necessary
+
+Database update (Please note - if you are having issues with custom outcomes - please run this code on your database):
+
+ALTER TABLE `outcome` AUTO_INCREMENT = 100;
+
+
+queXS 1.14.2 - Changes since 1.14.1
+
+A bug fix release for the 1.14 series of queXS
+
+Fixed issue: Call attempts can exist with no calls - clear them out
+Fixed issue: Samples with call attempt time slots assigned will still draw new numbers out of defined times
+Fixed issue: Importing CSV with empty columns at end of file causing failure
+Fixed issue: Cannot delete outcomes
+
+Translations have been updated - thank you for your continued contributions!
+
+
+queXS 1.14.1 - Changes since 1.14.0
+
+New feature: CAS Authentication
+
+Fixed bug: When self completing group by group or all-in-one, numeric key presses may change previous answers
+Fixed bug: lp:1528293 fix and translated outcomes descriptions, added 'outcome id' to output (thanks Alex)
+Fixed bug: lp:1527201 output to csv in dataoutput.php (thanks Alex)
+Fixed bug: lp:1527201 (thanks Alex)
+Fixed bug: Removed extraneous documentation
+
+Thank you again to those who contributed translations - these have been updated.
+
+
+queXS 1.14.0 - Changes since 1.13.1
+
+New feature: Session based authentication instead of web server authentication
+New feature: Ordering of sample files on an overall and by questionnaire level to determine which numbers will be drawn first
+New feature: Client panel now displays basic summary stats
+New feature: Can add custom outcome codes and assign a subset of outcomes to questionnaires
+New feature: Added skeletonquest Limesurvey theme for self completion (mobile friendly)
+
+Bug fix: lp:1510368 Lime quota with more than one option in list doesn't display in queXS quota report
+Bug fix: lp:1510369 When survey completed as "Self completed online", quotas based on either sample or data inputs, are not counted as completed
+Fixed Bug: Web first case generation failing with some insert strings
+Fixed bug: Error inserting case due to token random generation collision
+
+Changes for session authentication:
+
+queXS now uses the Limesurvey session based authentication system to authenticate all users.
+
+If this is a fresh install - you can ignore the notes below. Otherwise - please read through 
+the following for converting from directory based authentication to session based authentication.
+
+File changes for session authentication:
+
+If you have used the example .htaccess files or created your own, and you want to move to purely
+session based authentication, you can remove these files. They are typcially at these locations:
+
+.htaccess
+client/.htaccess
+admin/.htaccess
+include/limesurvey/.htaccess
+include/limesurvey/admin/.htaccess
+
+This will remove restrictions for access via directory based authentication and rely solely on session authentication.
+
+Database changes for session authentication:
+
+These queries will:
+1. Make the first queXS user an admin user, and assign them the password "password"
+2. Make all other users regular users, and assign them the password "password"
+3. Make all clients regular clients, and assign them the password "password"
+
+Once you have run these - please go to the operator management page and update passwords for all users AND reassign any extensions.
+
+/* Make the first user the admin user - with default password of: password */
+INSERT INTO `lime_users` (`users_name`, `password`, `full_name`, `parent_id`, `lang`, `superadmin`) 
+SELECT username, 0x35653838343839386461323830343731353164306535366638646336323932373733363033643064366161626264643632613131656637323164313534326438, firstName, 0, 'auto', 1
+FROM operator
+WHERE operator_id = 1;
+
+/* Make all other users operators - with default password of: password */
+INSERT INTO `lime_users` (`users_name`, `password`, `full_name`, `parent_id`, `lang`, `superadmin`) 
+SELECT username, 0x35653838343839386461323830343731353164306535366638646336323932373733363033643064366161626264643632613131656637323164313534326438, firstName, 1, 'auto', 0
+FROM operator
+WHERE operator_id != 1;
+
+/* Make all clients - with default password of: password */
+INSERT INTO `lime_users` (`users_name`, `password`, `full_name`, `parent_id`, `lang`, `superadmin`) 
+SELECT username, 0x35653838343839386461323830343731353164306535366638646336323932373733363033643064366161626264643632613131656637323164313534326438, firstName, 1, 'auto', 0
+FROM client
+WHERE 1;
+
+/* Remove redundant table */
+DROP TABLE `sessions2`;
+
+/* Add sort order feature to questionnaire sample table */
+/* after update just open "Assign & Sort questionnaire samples" admin page (assignsample.php) and set required sort_order*/
+ALTER TABLE `questionnaire_sample` ADD `sort_order` INT( 11 ) NOT NULL DEFAULT '1';
+
+/* Add default outcomes feature */
+
+/* -- add `default` and `permanent` parameters for outcomes -- */
+ALTER TABLE `outcome` ADD `default` TINYINT(1) UNSIGNED NOT NULL DEFAULT '1' COMMENT 'Used as default for questionnaire outcomes' AFTER `calc`, ADD `permanent` TINYINT(1) UNSIGNED NOT NULL COMMENT 'Permanent outcome, used for all questionnaires, not possible to de-select' AFTER `default`;
+
+/* -- define and set mandatory(constant) outcome_id's --*/
+UPDATE `outcome` SET `permanent` = '1' WHERE `outcome`.`outcome_id` IN (1,2,3,7,9,10,14,17,18,19) ;
+
+/* -- set AUTO_INCREMENT to 100 @ `outcome` to reserve some id's -- */
+ALTER TABLE `outcome` AUTO_INCREMENT = 100;
+
+/* -- add `outcomes` parameter ,  define default list of outcome_ID's to be enabled for new questionnaries --*/
+ALTER TABLE `questionnaire` ADD `outcomes` VARCHAR(256) NULL DEFAULT '1,2,3,7,9,10,14,17,18,19' COMMENT 'Comma-separated string of outcomes defined for the questionnaire' AFTER `enabled`;
+
+/* -- enable all outcomes for existing questionnaires -- */
+UPDATE `questionnaire` SET `outcomes` = '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,40,41,42,43,44,45' ;
+
+
+!!-- IMPORTANT --!! 
+If you had more than 1 sample assigned to a questionaire before "samplesort" update, you'll need to have different sort_order values (llike 0,1,2 e.t.c.)for each sample per questionnaire to make "samplesort" feature work.
+
+Easy way: unassign samples from quesionnaires (no more than 1 could be left per questionnaire)  and reassign them back.
+
+Check that you have different "Sort order" values for each sample per questionnaire, test order change with up/down arrows.
+!!
+
+queXS 1.13.1 - Changes since 1.13.0
+
+Fixed Bug: Remove references to old DEFAULT_TIME_ZONE config constant (use get_settings instead)
+Fixed Bug: lp:1480880 - disable create new questionnaire if no active Limesurvey available
+Fixed Bug: Update FreePBX compatability to 2.11 /  Make IAX extensions start from 1000
+Fixed Bug: Checkbox group selection and HTML errors in operator / skills / assignment pages
+Fixed Bug: Max call attempts should be temporary outcome as value can change
+Fixed Bug: Fix sample import given new database structure (sample_var table)
+Fixed Bug: lp:1408870 Add "Maximum attempts reached" as an outcome
+Fixed Bug: PHP notices when using call history
+
+New Feature: Pre-generation of cases and copying of sample variables to Limesurvey attributes for "Web First" then CATI methodology
+
+Updated translations from Launchpad - Thank you!
+
+Database updates required:
+
+/* Fix max attempt outcomes */
+
+DELETE FROM `outcome` WHERE outcome_id IN (42,43,44,45);
+INSERT INTO `outcome` (`outcome_id`, `aapor_id`, `description`, `default_delay_minutes`, `outcome_type_id`, `tryanother`, `contacted`, `tryagain`, `eligible`, `require_note`, `calc`) VALUES(42, '3.90', 'Max call attempts reached (Unknown eligibility)', 0, 1, 0, 1, 1, 0, 0, 'UH');
+INSERT INTO `outcome` (`outcome_id`, `aapor_id`, `description`, `default_delay_minutes`, `outcome_type_id`, `tryanother`, `contacted`, `tryagain`, `eligible`, `require_note`, `calc`) VALUES(43, '3.90', 'Max calls reached (Unknown eligibility)', 0, 1, 0, 1, 1, 0, 0, 'UH');
+INSERT INTO `outcome` (`outcome_id`, `aapor_id`, `description`, `default_delay_minutes`, `outcome_type_id`, `tryanother`, `contacted`, `tryagain`, `eligible`, `require_note`, `calc`) VALUES(44, '2.30', 'Max call attempts reached (Eligible)', 0, 1, 0, 1, 1, 1, 0, 'O');
+INSERT INTO `outcome` (`outcome_id`, `aapor_id`, `description`, `default_delay_minutes`, `outcome_type_id`, `tryanother`, `contacted`, `tryagain`, `eligible`, `require_note`, `calc`) VALUES(45, '2.30', 'Max calls reached (Eligible)', 0, 1, 0, 1, 1, 1, 0, 'O');
+
+queXS 1.13.0 - Changes since 1.12.1
+
+Overall changes:
+
+*Very big changes to the Administrative interface - thank you to Alex (https://launchpad.net/~ddrmoscow) for your hard work.
+*Sample variables are now stored in a more efficient way in the database.
+
+Specific changes (see this branch for details: https://bazaar.launchpad.net/~ddrmoscow/quexs/Features/changes):
+
+522: Alex 2015-07-16 DB syncronization and  related files update
+521: Alex 2015-07-16 styling and lauout syncronization
+520: Alex 2015-07-16 Show only "not completed" missed appointments
+519: Alex 2015-07-16 updated lime and  gettext translations files
+518: Alex 2015-07-15 speed Up (enabled) check for available cases by applying questionnaire.enabled = 1 and samlpe_import.enabled =1 filters  (refered  to main branch rev.443)
+517: Alex 2015-07-10 Fixes lp:1472581 add SGQ code to questions selector
+515: Alex 2015-07-10 updated file links for easier Bootstrap, Jquery, Jquery-UI and Font-awesome updates
+514: Alex 2015-07-10 updated Bootstrap to 3.3.5 -> placed in /bootstrap/ 
+513: Alex 2015-07-09 reverted "Go back" href, added button to switch to quota report page (#1472568)
+511: Alex 2015-07-08 added  "missed appointments" table
+510: Alex 2015-07-08 added icons + buttons 
+509: Alex 2015-07-08 fix  differences between working installation and tree
+508: Alex 2015-07-08 fixed issues after merging with rev.448 to operate with var_id and exclude_var_id instead of sample_var
+507: Alex 2015-07-08 fixed issues after merging with rev.448 to operate with var_id and exclude_var_id instead of sample_var
+506: Alex 2015-07-08 added filter for "completed"  appoinments in display list
+505: Alex 2015-07-08 fix small differences between  working installation and tree
+504: Alex 2015-07-06 revert to prev version in questionnairelist.php with changed merged from rev.448
+503: Alex 2015-07-02 [merge] merged rev450
+502: Alex 2015-06-26 [merge] merge with rev.449 / release 1.12.0
+501: Alex 2015-06-26 [merge] merged  rev.448
+500: Alex 2015-06-24 Corrected   function get_case_id
+499: Alex 2015-06-23 [merge] update to rev.447
+498: Alex 2015-05-20 rev443 http://bazaar.launchpad.net/~adamzammit/quexs/main/revision/443 gave an idea of another way to select operator cases,
+497: Alex 2015-05-20 3 columns layout for rs_intro_interface2.php with buttons instaed of links, easy and convinient
+496: Alex 2015-05-20 new "Set outcome" popud dialog, split by "contaced" choice,
+495: Alex 2015-05-20 reorder divs in order of appearance
+494: Alex 2015-05-20 cosmetic and equalization with working branch
+493: Alex 2015-05-20 new Appointment window popup - simple, clean and nice
+492: Alex 2015-05-20 hide  displaying page headers in tabs  as too space consuming
+491: Alex 2015-05-17 [merge] merged rev446
+490: Alex 2015-05-17 [merge] Here it is
+489: Alex 2015-04-29 missing final tag
+488: Alex 2015-04-01 some css modifications to Lime export results page layout and view. was too small text and  overlapping
+487: Alex 2015-04-01 lol   wrong way updated...
+486: Alex 2015-04-01 fixed  'required' attribute for input to apply only when field is visible
+485: Alex 2015-04-01 merged changes from main rev 445
+484: Alex 2015-04-01 [merge] merged rev.445
+483: Alex 2015-03-24 added attribute 'required' to input fields
+482: Alex 2015-03-24 added <tfoot> for $total   to table function
+481: Alex 2015-03-23 removed bootstrap-switch addon application from branch, as all pages switched to bs-toogle application
+480: Alex 2015-03-23 New page layout
+479: Alex 2015-03-23 New page look and layout, 
+478: Alex 2015-03-23 New look, 
+477: Alex 2015-03-23 file update,  switch to bs-toggle
+476: Alex 2015-03-23 New look, 
+475: Alex 2015-03-23 3 in 1 page for better usage and simulaneous view,
+474: Alex 2015-03-23 updates, small improvemnts
+473: Alex 2015-03-23 NEW look, new Feature: respondent Timezone and Local time displayappointments.php
+472: Alex 2015-03-23 updated questionnairelist.php  and   new.php
+471: Alex 2015-03-23 pages new look
+470: Alex 2015-03-23 new "Operators" menu pages
+469: Alex 2015-03-23 new  look  for pages
+468: Alex 2015-03-23 new "client" pages
+
+
+Database updates required:
+
+/* New outcomes */
+
+DELETE FROM `outcome` WHERE outcome_id IN (42,43,44,45);
+INSERT INTO `outcome` (`outcome_id`, `aapor_id`, `description`, `default_delay_minutes`, `outcome_type_id`, `tryanother`, `contacted`, `tryagain`, `eligible`, `require_note`, `calc`) VALUES(42, '3.90', 'Max call attempts reached (Unknown eligibility)', 0, 1, 0, 1, 1, 0, 0, 'UH');
+INSERT INTO `outcome` (`outcome_id`, `aapor_id`, `description`, `default_delay_minutes`, `outcome_type_id`, `tryanother`, `contacted`, `tryagain`, `eligible`, `require_note`, `calc`) VALUES(43, '3.90', 'Max calls reached (Unknown eligibility)', 0, 1, 0, 1, 1, 0, 0, 'UH');
+INSERT INTO `outcome` (`outcome_id`, `aapor_id`, `description`, `default_delay_minutes`, `outcome_type_id`, `tryanother`, `contacted`, `tryagain`, `eligible`, `require_note`, `calc`) VALUES(44, '2.30', 'Max call attempts reached (Eligible)', 0, 1, 0, 1, 1, 1, 0, 'O');
+INSERT INTO `outcome` (`outcome_id`, `aapor_id`, `description`, `default_delay_minutes`, `outcome_type_id`, `tryanother`, `contacted`, `tryagain`, `eligible`, `require_note`, `calc`) VALUES(45, '2.30', 'Max calls reached (Eligible)', 0, 1, 0, 1, 1, 1, 0, 'O');
+
+
+/* Add var_id sample var identifier */
+ALTER TABLE  `sample_import_var_restrict` DROP PRIMARY KEY, CHANGE var var CHAR(128);
+ALTER TABLE `sample_import_var_restrict` ADD  `var_id` BIGINT( 20 ) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT AFTER  `sample_import_id`;
+ALTER TABLE  `sample_import_var_restrict` ADD  `type` SMALLINT( 10 ) UNSIGNED NOT NULL AFTER  `var`;
+
+ALTER TABLE  `sample_var` ADD  `var_id` BIGINT( 20 ) UNSIGNED NOT NULL AFTER  `sample_id`;
+
+UPDATE `sample_var` as sv ,`sample`as s, `sample_import_var_restrict` as sivr  SET sv.`var_id`=sivr.`var_id`  WHERE sv.`var` LIKE sivr.`var`  AND sv.`sample_id`=s.`sample_id` AND   s.`import_id`=sivr.`sample_import_id`;
+
+UPDATE  `sample_import_var_restrict` ,
+`sample_var` SET  `sample_import_var_restrict`.`type` =  `sample_var`.`type` WHERE  `sample_import_var_restrict`.`var_id` =  `sample_var`.`var_id`;
+
+ALTER TABLE  `qsqr_sample` ADD  `exclude_var_id` BIGINT( 20 ) NOT NULL AFTER  `questionnaire_sample_quota_row_id`;
+
+UPDATE  `qsqr_sample` as qsqr, `sample_import_var_restrict` as sivr, questionnaire_sample_quota_row as qq SET  qsqr.exclude_var_id =  sivr.var_id WHERE  qq.questionnaire_sample_quota_row_id = qsqr.questionnaire_sample_quota_row_id AND qq.sample_import_id =  sivr.sample_import_id and qsqr.exclude_var = sivr.var;
+
+ALTER TABLE `sample_var` DROP PRIMARY KEY;
+ALTER TABLE `sample_var` DROP `var`;
+ALTER TABLE `sample_var` DROP `type`;
+ALTER TABLE `sample_var` ADD PRIMARY KEY (`sample_id`,`var_id`);
+
+/* OPTIONAL */
+
+/* De-identify sample table completely where attempted previously */
+UPDATE `sample`  LEFT JOIN `sample_var` ON (`sample`.sample_id = `sample_var`.sample_id) SET `Time_zone_name`= '',`phone`= '' WHERE `sample_var`.sample_id IS NULL;
+
+/* Delete de-identified sample columns */
+DELETE FROM  `sample_import_var_restrict` WHERE  `type` =0;
+
+
+queXS 1.12.1 - Changes since 1.12.0
+
+Fixed Bug: lp:1472581 add SGQ code to questions selector, proper questions list order (thanks Alex)
+Fixed Bug: lp:1472563 typo in sql querry after rev.448 (thanks Alex)
+Fixed Bug: lp:1468417  operators fail to get next case ID
+
+
+queXS 1.12.0 - Changes since 1.11.1
+
+New Feature: Complex row quotas (see: https://blueprints.launchpad.net/quexs/+spec/complexquota) - Thank you Marco for sponsoring this feature
+New Feature: Time slots extended to cover sample by sample as well as questionnaire by questionnaire - Thank you for sponsoring this feature
+
+Fixed Bug: Check for available cases on no case available page is too time consuming
+Fixed Bug lp:1436664 - System sort process fails where database name not 'quexs'
+Fixed Bug lp:1452070 - New numbers still drawn when 'allow new numbers to be drawn' set to No
+Fixed Bug lp:1459935 - When no operators have an extension assigned, questionnaires in test mode fail to create phone numbers for new cases
+
+Translations: Updated from Launchpad - thank you especially to Russian and Spanish translators for updating your translations!
+
+
+Database updates:
+
+CREATE TABLE `questionnaire_sample_timeslot` (
+`questionnaire_id` bigint( 20 ) NOT NULL ,
+`sample_import_id` bigint( 20 ) NOT NULL ,
+`availability_group_id` bigint( 20 ) NOT NULL ,
+PRIMARY KEY ( `questionnaire_id` , `availability_group_id` , `sample_import_id` )
+) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_unicode_ci;
+
+CREATE TABLE `qsqr_question` (
+   `qsqr_question_id` bigint(20) NOT NULL AUTO_INCREMENT,
+   `questionnaire_sample_quota_row_id` bigint(20) NOT NULL,
+   `lime_sgqa` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+   `value` varchar(2048) COLLATE utf8_unicode_ci NOT NULL,
+   `comparison` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+   `description` text COLLATE utf8_unicode_ci NOT NULL,
+   PRIMARY KEY (`qsqr_question_id`),
+   KEY `questionnaire_sample_quota_row_id` (`questionnaire_sample_quota_row_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+CREATE TABLE `qsqr_sample` (
+  `qsqr_sample_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `questionnaire_sample_quota_row_id` bigint(20) NOT NULL,
+  `exclude_var` char(128) COLLATE utf8_unicode_ci NOT NULL,
+  `exclude_val` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
+  `comparison` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`qsqr_sample_id`),
+  KEY `questionnaire_sample_quota_row_id` (`questionnaire_sample_quota_row_id`),
+  KEY `exclude_var` (`exclude_var`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+
+INSERT INTO qsqr_question (questionnaire_sample_quota_row_id,lime_sgqa,value,comparison)
+SELECT questionnaire_sample_quota_row_id, lime_sgqa, value, comparison
+FROM questionnaire_sample_quota_row
+WHERE lime_sgqa != -1 AND lime_sgqa != -2;
+
+INSERT INTO qsqr_sample (questionnaire_sample_quota_row_id,exclude_var,exclude_val,comparison)
+SELECT questionnaire_sample_quota_row_id, exclude_var,exclude_val, 'LIKE'
+FROM questionnaire_sample_quota_row;
+
+ALTER TABLE `questionnaire_sample_quota_row`
+  DROP `lime_sgqa`,
+  DROP `value`,
+  DROP `comparison`,
+  DROP `exclude_var`,
+  DROP `exclude_val`;
+
+queXS 1.11.1 - Changes since 1.11.0
+
+Fixed Bug: Quota priority not able to override sort of last call made
+Fixed Bug lp:1410503 required URLto the CKeditor installation directory
+Fixed Bug lp:1411703 Asign cases even with sample disabled and sample unassigned from questionnaire
+Fixed Bug lp:1412389 removed language restriction
+Fixes Bug lp:141380 System sort process fails when quotas enabled and limesurvey instrument de-activated
+Fix error in translation where thinks it is a wildcard
+
+Translations: Updated from Launchpad. Thank you again!
+
+queXS 1.11.0 - Changes since 1.10.4
+
+New Feature: System sort on a questionnaire by questionnaire basis
+New Feature: Time slots for cases (make sure cases are called over specified timeslots equally)
+New Feature: Ability to disable and enable new records being drawn from a sample
+New Feature: Default timezone can be set in Administrative interface instead of config file
+
+Fixed Bug: lp:1394819 Automatic dialling doesn't work when using "No respondent selection"
+Fixed Bug: lp:1394818 - Quota completions not displayed above 100%
+Fixed Bug: Operator extension not clearing correctly at end of work
+Fixed Bug: Notices generated when running index_update.php
+Fixed Bug: lp:1362415 Use of eregi and split are deprecated
+Fixed Bug: lp:1362418 - Cannot originate calls on Asterisk 11
+
+Translations: Updated from Launchpad. Thank you!
+
+Database updates:
+
+ALTER TABLE `questionnaire_sample` ADD `allow_new` TINYINT( 1 ) NOT NULL DEFAULT '1';
+
+CREATE TABLE `questionnaire_timeslot` (
+`questionnaire_id` bigint( 20 ) NOT NULL ,
+`availability_group_id` bigint( 20 ) NOT NULL ,
+PRIMARY KEY ( `questionnaire_id` , `availability_group_id` )
+) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_unicode_ci;
+
+INSERT INTO `setting` (`setting_id`,`field`,`value`)
+VALUES (NULL , 'DEFAULT_TIME_ZONE', 's:18:"Australia/Victoria";');
+
+queXS 1.10.4 - Changes since 1.10.3
+
+Fixed bug: Quota priority could get below 0
+Fixed bug: Process won't close itself if forced killed before it has a chance to close
+Fixed bug: lp:1338395 - Quotas being incremented in samples that have not yet been accessed
+Fixed bug: Download VoIP client script failing
+Translations: Updated from Launchpad. Thank you for contributing!
+
+queXS 1.10.3 - Changes since 1.10.2
+
+Fixed bug: Initial page is always Call/Hangup even if on a call or no case available
+Fixed bug: When last outcome is Technical Phone Problems, case outcome set to not attempted or worked
+Translations: Almost complete Simplified Chinese translation added - Thank you!
+
+queXS 1.10.2 - Changes since 1.10.1
+
+New Feature: Shift report in data output
+New feature: Deidentify a case
+
+Fixed bug: OPERATOR and RESPONDENT replacements not working in respondent selection module
+Fixed bug: Not adding interviewer to htgroup when changing username
+Fixed bug: Not all browsers recognise text as UTF-8
+Fixed bug: Not all strings being translated
+Fixed bug: Session expiry occurring when moving from respondent selection module to questionnaire
+
+Updated translations and the beginning of a German translation - Thank you Daniel.
+
+queXS 1.10.1 - Changes since 1.10.0
+
+Fixed Bug: Database creation fails due to additional comma (new installations)
+Translations updated - Thank you!
+
+queXS 1.10.0 - Changes since 1.9.2
+
+New Feature: Operators can choose extension (see: https://blueprints.launchpad.net/quexs/+spec/operatorextension)
+New Feature: Accept case referrals (see: https://blueprints.launchpad.net/quexs/+spec/referral)
+Fixed Bug: Timezone detection not choosing best number
+
+Database updates:
+
+ALTER TABLE `questionnaire` ADD `referral` TINYINT( 1 ) NOT NULL DEFAULT '0' AFTER `self_complete`
+
+CREATE TABLE IF NOT EXISTS `extension` (
+  `extension_id` int(11) NOT NULL AUTO_INCREMENT,
+  `extension` char(10) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `current_operator_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`extension_id`),
+  UNIQUE KEY `extension` (`extension`),
+  UNIQUE KEY `current_operator_id` (`current_operator_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+INSERT INTO `extension` (extension,password,current_operator_id,status)
+SELECT extension,extension_password,operator_id,voip_status
+FROM operator;
+
+ALTER TABLE `operator`
+DROP `extension`,
+DROP `extension_password`,
+DROP `voip_status`;
+
+queXS 1.9.2 - Changes since 1.9.1
+
+New Feature: Auto dial (set AUTO_DIAL_SECONDS in configuration) with VoIP enabled will automatically dial the first number for interviewers
+Fixed Bug: lp:1255348 Text cut off when entering some special characters
+Fixed Bug: lp:1255359 Translation strings with single quotes break some SQL queries
+Fixed Bug: lp:1257163 problem - closing case following self-completion on line
+Translations: Updated from Launchpad. Thank you especially to contributors to the Brazilian Portuguese and Italian translations that are now complete, and for the beginnings of a Hebrew translation
+
+queXS 1.9.1 - Changes since 1.9.0
+
+New Feature: Add caseid to SPSS output
+New Feature: Add token to sample key output
+New Feature: Add more metadata to data output including case notes, case outcome, total interview time, last number dialed, operator username
+Fixed Bug: lp:1209479 Allows for the deletion and modification of availability groups
+Fixed Bug: lp:1220515 Database error when displaying questionnaire
+Fixed Bug: lp:1209486 Supervisor can assign a blank outcome to a case which makes it unavailable
+Fixed Bug: Make sure sample fields without restrictions still display
+Fixed Bug: Prefill questions displaying out of order and including wrong fields
+Translations: Updated and Bosnian translation begun - Thank you for your contributions!
+
+queXS 1.9.0 - Changes since 1.8.0
+
+New Feature: Supervisor chat via XMPP/Jabber (allow interviewers to chat with a supervisor from the interviewer screen)
+New Feature: Set downloading VoIP client as the default
+Fixed Bug: Server overloads when downloading VoIP client if temporary directory not writeable
+Translations: Updated Czech translation - Thank you!
+
+Database updates:
+
+ALTER TABLE `operator` ADD `chat_enable` TINYINT( 1 ) NULL DEFAULT '0',
+ADD `chat_user` VARCHAR( 255 ) NULL ,
+ADD `chat_password` VARCHAR( 255 ) NULL ;
+
+queXS 1.8.0 - Changes since 1.7.6
+
+New Feature: Allow for restricting the view of sample variables to operators
+New Feature: Case status and assignment page allowing to view the current status of cases by questionnaire, and allow for the manual assigning to operators if required
+
+Database updates:
+
+CREATE TABLE IF NOT EXISTS `case_queue` (
+  `case_queue_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `case_id` bigint(20) NOT NULL,
+  `operator_id` bigint(20) NOT NULL,
+  `sortorder` int(11) NOT NULL,
+  PRIMARY KEY (`case_queue_id`),
+  UNIQUE KEY `case_id` (`case_id`),
+  KEY `operator_id` (`operator_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `sample_import_var_restrict` (
+  `sample_import_id` bigint(20) NOT NULL,
+  `var` char(128) collate utf8_unicode_ci NOT NULL,
+  `restrict` tinyint(1) NOT NULL default '0',
+  PRIMARY KEY  (`sample_import_id`,`var`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+queXS 1.7.6 - Changes since 1.7.5
+
+Fixed Bug: Define operator skills as for the assigning of cases to operators
+Fixed Bug: Define availability group as for respondent
+Fixed Bug: Add description of shift defining process and label year and week of year
+Fixed Bug: Add message about missing sample if sample not assigned 
+Fixed Bug: Don't display overall stats unless explicitly selected
+New Feature: Search for cases that have been assigned but not completed in more than 24 hours and put them back in the pool
+New Feature: Allow for editing of assigned sample details
+New Feature: Assign appointments in order of closest ending time
+New Feature: Added IS_INTERVIEWER token so can check if the questionnaire is administered by an interviewer by the following Lime Expression Manager code: {if(IS_INTERVIEWER,'This is an interviewer','THIS IS NOT AN INTERVIEWER')}
+Fixed Bug: Set default template if token specified but no equivalent token in queXS (i.e. when using limesurvey within queXS standalone)
+Translations: Added Persian language and updated translations from Launchpad - thank you
+
+queXS 1.7.5 - Changes since 1.7.4
+
+Fixed Bug: Set default supervisor extension to be 1000
+Fixed Bug: Add quota updates to system sort process to keep additive quotas up to date
+Fixed Bug: Previews in Limesurvey should be as an interviewer
+Fixed Bug: Reset page position when respondent is to self complete in a different mode
+Fixed Bug: Only apply automatic text focus when working as an interviewer (otherwise may jump to strange part of page)
+Fixed Bug: Updated error message when adding operator if extension is the same
+Fixed Bug: Make sure cases are only generated for enabled questionnaires
+Fixed Bug: Email charset wasn't UTF8
+New Feature: Display if assigned questionnaires are enabled or not
+Translations: Updated translations (thank you again to all the translators)
+
+queXS 1.7.4 - Changes since 1.7.3
+
+Fixed Bug: Only auto advance in the questionnaire if an interviewer (not when self completing)
+Fixed Bug: When emailing - respect the limesurvey email settings including SSL
+
+queXS 1.7.3 - Changes since 1.7.2
+
+Fixed Bug: Reliance on JS executing as PHP for ckeditor
+Fixed Bug: Use of group concat for timezones is character limited and causes timezone list to truncate
+Fixed Bug: PEAR Calendar class issuing PHP Strict notices
+Fixed Bug: Adding a contact phone without a description causes new case transaction to fail on some versions of MySQL
+Fixed Bug: Can't add operator with \ in name 
+Fixed Bug: HTTPS incorrectly being used in admin pages on IIS
+
+queXS 1.7.2 - Changes since 1.7.1
+
+New Feature: Add display of cases currently available by sample (in: questionnaire outcomes)
+Fixed Bug: Fixed .htaccess.example for limesurvey/admin directory
+Fixed Bug: Fixed errors that seemed to afflict mysql 5.1.68 on windows with PHP 5.4 and IIS (not creating a new case due to transaction failure)
+Fixed Bug: Removed deprecated ereg_replace
+Fixed Bug: Replace date time hardcoding with defaults from config
+Fixed Bug: Add operator and respondent details to core replacements in Limesurvey expression manager (need to use capitalisation)
+Translations: Updated and a new full Czech translation (thank you Zbyněk Schwarz)
+
+queXS 1.7.1 - Changes since 1.7.0
+
+Fixed Bug: Deletion of queXS questionnaire failed
+
+queXS 1.7.0 - Changes since 1.6.1
+
+New Feature: Replace queXS caseid as token with a random token to allow for safe external access
+New Feature: Allow for responents to self complete the questionnaire via email invitation
+New Feature: Allow restricting appointment to just yourself
+New Feature: Added ability to edit operators
+New Feature: Can delete a queXS questionnaire
+New Feature: List, rename and enable/disable sample files
+New Feature: Deidentify (delete fields) from sample files
+Fixed Bug: Replaced php short tags with long tags
+
+Database updates:
+
+ALTER TABLE `case` ADD `token` VARCHAR( 36 ) NOT NULL ;
+
+-- To allow for accessing existing cases in new system, need to assign a "token" for each case:
+
+UPDATE `case` SET token = case_id;
+ALTER TABLE `case` ADD UNIQUE (`token`);
+
+-- New outcomes for email invitation and online self completion:
+
+INSERT INTO `outcome` (`outcome_id`, `aapor_id`, `description`, `default_delay_minutes`, `outcome_type_id`, `tryanother`, `contacted`, `tryagain`, `eligible`, `require_note`, `calc`) VALUES
+(40, '1.1', 'Self completed online', 0, 4, 0, 1, 1, 1, 0, 'I'),
+(41, '2.36', 'Self completion email invitation sent', 10080, 1, 0, 1, 1, 1, 0, 'O');
+
+-- New sample variable type (Email address):
+
+INSERT INTO `sample_var_type` (`type`, `description`, `table`) VALUES
+(8, 'Email address', '');
+
+-- Specify details of respondent self completion:
+
+ALTER TABLE `questionnaire` ADD `self_complete` TINYINT( 1 ) NOT NULL DEFAULT '0' AFTER `info`,
+ADD `lime_mode` VARCHAR( 64 ) NULL COMMENT 'Limesurvey mode for respondent self completion' AFTER `self_complete` ,
+ADD `lime_template` VARCHAR( 128 ) NULL COMMENT 'Limesurvey template for respondent self completion' AFTER `lime_mode` ,
+ADD `lime_endurl` VARCHAR( 256 ) NULL COMMENT 'Forwarding end URL for respondent self completion' AFTER `lime_template` ;
+
+-- Allow for enabling/disabling sample files:
+
+ALTER TABLE `sample_import` ADD `enabled` TINYINT( 1 ) NOT NULL DEFAULT '1';
+
+-- Contact phone should allow for char phone numbers:
+
+ALTER TABLE `contact_phone` CHANGE `phone` `phone` CHAR( 30 ) NOT NULL 
+
+
+queXS 1.6.1 - Changes since 1.6.0
+
+New Feature: Include paradata/metadata in data output (number call attempts, number of answering machine messages and all sample variables)
+Fixed Bug: Sample import lists not translatable
+Translations updated (Thanks to those who contributed on Launchpad) 
+
+quexs 1.6.0 - Changes since 1.5.4
+
+Major New Feature: Updated to Limesurvey 1.92 Build 120919 last commit a2955e94e254f09b6f31c6c0ca8cf25929ec7e7 on GitHub 13 November 2012
+New Feature: Use ADODB from Limesurvey (so no additional ADODB installation required)
+New Feature: Access sample variables via the Limesurvey Expression Manager system (using {SAMPLE:xxxx} notation)
+New Feature: Make default end URL {ENDINTERVIEWURL}
+
+
+queXS 1.5.4 - Changes since 1.5.3:
+
+New Feature: Added bulk appointment generator from CSV 
+New Feature: Added questionnaire to call history and CSV download option
+New Feature: List questionnaires from newest first
+New Feature: Added count of outcomes by call attempt
+New Feature: Add process_clear_log function to make sure process_log table doesn't get too big
+Fixed Bug: Use less memory when exporting CSV call history
+Fixed Bug: Fixed timezone assignment in AU database by phone number prefix
+Fixed Bug: List questionnaires even if not in default language
+Fixed Bug: Updated jquery in Limesurvey due to Firefox 12 scroll bug: https://bugzilla.mozilla.org/show_bug.cgi?id=749935
+Translations updated (Thanks to those who contributed on Launchpad)
+
+Database changes suggested:
+
+ALTER TABLE sample_prefix_timezone MODIFY val char(10) NOT NULL;
+
+queXS 1.5.3 - Changes since 1.5.2:
+
+New Feature: Automatically create tokens table when activating (as is required by queXS)
+New Feature: Sample only quota for row quota (set quotas based on sample record values)
+New Feature: Complete sample file output with caseid (if assigned) and current outcome
+New Feature: Added a listing of cases by outcome for a questionnaire when clicking on the outcome code. Can then link through to individual case management
+
+Fixed Bug: Make sure to mark system sort process as stopped when manually killed
+Fixed Bug: Question quota selections to work properly with Limesurvey 1.91+ database structure
+
+
+queXS 1.5.2 - Changes since 1.5.1:
+
+New Feature: Add a response via XML RPC. Using this revision of queXS and queXF 1.13.0 - you can export a paper form from queXS and once paper forms are scanned and verified, the data can be sent from queXF back to queXS using XMLRPC (can be on different servers)
+Fixed Bug: Timezones entered from list instead of manually
+Updates: Limesurvey to 1.91+ Revision 11354 
+Translations updated (thanks!)
+
+queXS 1.5.1 - Changes since 1.5.0:
+
+New features:
+*Alternate interface avaialble to operators that aren't using VoIP (enable with ALTERNATE_INTERFACE directive in config file) - sponsor: Zimi
+
+Updates:
+*Updated Limesurvey to 1.91+ Revision 11132
+*Translations updated (thank you to everyone who contributed on Launchpad)
+
+queXS 1.5.0 - Changes since 1.4.0:
+
+New features:
+*Updated to Limesurvey 1.91+
+*Data export via Limesurvey allowing for limitations by queXS questionnaire / sample
+*Select the first respondent for an appointment by default
+
+queXS 1.4.0 - Changes since 1.3.0:
+
+New features:
+*Administrator appointment editing added calendar to assist
+*Disabled overall performance information as it is slow with large installations and not particularly useful
+*Added "availability" feature:
+**Administrators specificy "availability groups" which include days of the week and times
+**Operators then choose if a case will be available within the availability group
+*Updated queXMLPDF class to queXML 1.3.3
+*Assign the next case to an operator specifically using the administrative functions
+*Reorganised administrators menu
+*Added database optimisations and keys
+*Updated translations. Thank you to all who contributed on Launchpad!
+
+Bug fixes:
+*Fixed: SIP Channels not hanging up
+*Fixed: Respondent selection text editor not printed correctly in Chrome - Patch by Grzesiek (thank you)
+*Fixed: Export to SPSS was failing due to queXS tokens
+*Removed reliance on sessions in sample import process unecessary
+
+Database changes:
+
+ALTER TABLE `operator` ADD `next_case_id` BIGINT( 20 ) default NULL ;
+ALTER TABLE `call` ADD INDEX(`start`);
+ALTER TABLE `case` ADD INDEX(`last_call_id`);
+ALTER TABLE `lime_saved_control` CHANGE `identifier` `identifier` BIGINT( 20 ) NOT NULL;
+ALTER TABLE `lime_saved_control` ADD INDEX(`identifier`);
+ALTER TABLE `lime_saved_control` ADD INDEX(`srid`);
+
+CREATE TABLE IF NOT EXISTS `availability` (
+  `availability_id` bigint(20) NOT NULL auto_increment,
+  `availability_group_id` bigint(20) NOT NULL,
+  `start` time NOT NULL,
+  `end` time NOT NULL,
+  `day_of_week` tinyint(1) NOT NULL,
+  PRIMARY KEY  (`availability_id`),
+  KEY `availability_group_id` (`availability_group_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `availability` (`availability_id`, `availability_group_id`, `start`, `end`, `day_of_week`) VALUES
+(1, 1, '00:00:00', '11:59:59', 2),
+(2, 1, '00:00:00', '11:59:59', 3),
+(3, 1, '00:00:00', '11:59:59', 4),
+(4, 1, '00:00:00', '11:59:59', 5),
+(5, 1, '00:00:00', '11:59:59', 6),
+(6, 2, '12:00:00', '17:59:59', 2),
+(7, 2, '12:00:00', '17:59:59', 3),
+(8, 2, '12:00:00', '17:59:59', 4),
+(9, 2, '12:00:00', '17:59:59', 5),
+(10, 2, '12:00:00', '17:59:59', 6),
+(11, 3, '18:00:00', '23:59:59', 2),
+(12, 3, '18:00:00', '23:59:59', 3),
+(13, 3, '18:00:00', '23:59:59', 4),
+(14, 3, '18:00:00', '23:59:59', 5),
+(15, 3, '18:00:00', '23:59:59', 6),
+(16, 4, '00:00:00', '23:59:59', 7);
+
+CREATE TABLE IF NOT EXISTS `availability_group` (
+  `availability_group_id` bigint(20) NOT NULL auto_increment,
+  `description` text collate utf8_unicode_ci NOT NULL,
+  PRIMARY KEY  (`availability_group_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `availability_group` (`availability_group_id`, `description`) VALUES
+(1, 'Weekday mornings (Before 12pm)'),
+(2, 'Weekday afternoons (After 12pm but before 6pm)'),
+(3, 'Evenings (After 6pm)'),
+(4, 'Saturdays');
+
+CREATE TABLE IF NOT EXISTS `case_availability` (
+  `case_id` bigint(20) NOT NULL,
+  `availability_group_id` bigint(20) NOT NULL,
+  PRIMARY KEY  (`case_id`,`availability_group_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `questionnaire_availability` (
+  `questionnaire_id` bigint(20) NOT NULL,
+  `availability_group_id` bigint(20) NOT NULL,
+  PRIMARY KEY  (`questionnaire_id`,`availability_group_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+queXS 1.3.0 - Changes since 1.2.0:
+
+queXS 1.3.0 includes major performance improvements for larger installations using the system sort process, better handling of VoIP, integration with FreePBX for easy VoIP extension creation, improved questionnaire management and support for the Internet Explorer >= 6.0 browser.
+
+New features:
+*{PERCCOMPLETE} token displays percentage complete in limesurvey and can be used as conditions token (eg > 0 means interview started)
+*messagesleft token for limesurvey conditions on number of answering messages left
+*Choose operator timezone from a list instead of having to enter
+*Integration with FREEPBX v2.8.0 (creation of extensions and reloading)
+*Operator management functions added 
+*Split database configuration file to structure and data by region (Added for Australia and USA)
+*Ability to download VoIP client
+*Support for Internet Explorer >= 6.0 (Sponsored by Zimi)
+*Can define project information in administrative menu
+*Ability to enable/disable questionnaires to remove clutter in administration screens
+*Complete outcome only appears for completed cases (Sponsored by Zimi)
+*Jump directly to questionnaire where no respondent selection informatino defined (Sponsored by Zimi)
+*AUTO_COMPLETE_OUTCOME added to automatically assign complete outcome on questionnaire completion (Sponsored by Zimi)
+*AUTO_LOGOUT_MINUTES to automatically logout interviewer session if left idle (Sponsored by Zimi)
+*DEFAULT_TAB, DEFAULT_TAB_APPOINTMENT set default tab to display in info section (Sponsored by Zimi)
+*Tabs can be enabled/disabled in configuration file
+*System sort process added for system wide case sorting. May improve performance in large installations
+*HEADER_EXPANDER_MANUAL directive added to allow for the header to be shrunk by the operator (Sponsored by Zimi)
+*Log of system sorting and voip monitoring displayed in table form
+*Limesurvey database automatically installed with new install
+
+Bug fixes:
+*queXS admin menu stays in place when using limesurvey condition editor
+*Case and appointments display correctly when questionnaire is not shift restrcited
+*Appointment time display respects TIME_FORMAT configuration directive
+*Word "till" localised (Thank you Zimi)
+*VoIP monitoring process gracefully handles errors/timeouts
+
+
+Required database modifications from 1.2.0:
+
+ALTER TABLE `questionnaire_sample_exclude_priority` ADD `sortorder` INT( 11 ) NULL ;
+ALTER TABLE `questionnaire_sample_exclude_priority` ADD INDEX ( `sortorder` ) ;
+ALTER TABLE `case` ADD `sortorder` INT( 11 ) NULL ;
+ALTER TABLE `case` ADD INDEX ( `sortorder` ) ;
+ALTER TABLE `questionnaire` ADD `info` text NULL ;
+ALTER TABLE `questionnaire` ADD `enabled` TINYINT( 1 ) NOT NULL default '1';
+ALTER TABLE `process` ADD `type` INT NOT NULL DEFAULT '1' AFTER `process_id` ;
+CREATE TABLE `process_log` (
+`process_log_id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`process_id` BIGINT NOT NULL ,
+`datetime` DATETIME NOT NULL ,
+ `data` text collate utf8_unicode_ci NOT NULL,
+INDEX ( `process_id` )
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE IF NOT EXISTS `setting` (
+ `setting_id` int(11) NOT NULL auto_increment,
+ `field` varchar(255) collate utf8_unicode_ci NOT NULL,
+ `value` text collate utf8_unicode_ci NOT NULL,
+ PRIMARY KEY  (`setting_id`),
+ UNIQUE KEY `field` (`field`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+COMMENT='Serialised table of settings';
+
+
+queXS 1.2.0 - Changes since 1.1.0:
+
+queXS 1.2.0 has 3 major feature additions since 1.1.0.
+
+1. Ability to produce a seperate Limesurvey questionnaire to act as a respondent selection module
+2. Can export Limesurvey questionnaires directly to queXML PDF files, ready to import to queXF for banding
+3. Quota row prioritisation added including auto priority calculation (Sponsor: Zimi)
+
+In addition, Translations have been updated (Thank you to those on Launchpad who have contributed). 
+
+The documentation on the website (Administration manual and Reports and quota documentation) has been ammended to include details of the new features.
+
+Upgrading requires a small database update:
+
+INSERT INTO `outcome` VALUES(33, '2.36', 'Miscellaneous - Unavailable for a week', 10080, 1, 0, 1, 1, 1, 0, 'O');
+ALTER TABLE `questionnaire` ADD `lime_rs_sid` INT( 11 ) NULL ;
+
+queXS 1.1.0 - Changes since 1.0.0:
+
+New features:
+*Performance improvements when using quota rows (Thank you Zimi)
+*Added configuration directive for Auto advance: LIME_AUTO_ADVANCE
+*Added more descriptive elements to printable survey for debugging
+*Added extension password to operator details
+*Status updated to handle extension password for switching VoIP on an off
+*VoIP Functions can properly handle IAX2 extensions
+*Can output entire key file 
+*(Limesurvey) Can assign queXS sample codes in the fieldname of a condition
+*Added VoIP Extension status monitoring in admin functions
+*Does not use popup windows (better for Kiosks) (Thank you McMaster University)
+*Added ability to delete case notes as supervisor
+
+Bug fixes:
+*Put the code for outcome to be for the supervisor in the right spot
+*Supervisor outcomes given priority along with final outcomes
+*Added error message when not an operator and trying to add a shift
+*Fixed bug where not displaying if default lang is not 'en'
+*(Limesurvey) When INSERTANS used, do not display "No Answer" when no answer is selected
+*Make sure to only move forward on click where appropriate (allow false to be passed to stop auto click)
+*(Limesurevy) Updated templates to look a bit better and include the limesurvey customonLoad function
+*VoIP status is now part of VoIP monitoring so we don't query the Asterisk server often
+*Added index to appointment table to speed up case selection criteria
+*Added case_id and date to queXML structure output (as appears in fixed width data file)
+*Doesn't try to call supervisor when on a call
+
+Translations updated from Launchpad. Thank you for your contributions:
+*Galacian
+*Spanish
+*French
+*Italian
+*Lithuanian
+*Dutch
+
+
