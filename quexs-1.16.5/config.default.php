@@ -216,10 +216,10 @@ if (!defined('TAB_CALLLIST')) define('TAB_CALLLIST', true);
 if (!defined('TAB_SHIFTS')) define('TAB_SHIFTS', true);
 if (!defined('TAB_APPOINTMENTLIST')) define('TAB_APPOINTMENTLIST', true);
 if (!defined('TAB_MYAPPOINTMENTLIST')) define('TAB_MYAPPOINTMENTLIST', true);
-if (!defined('TAB_PERFORMANCE')) define('TAB_PERFORMANCE', true);
+if (!defined('TAB_PERFORMANCE')) define('TAB_PERFORMANCE', false);
 if (!defined('TAB_CALLHISTORY')) define('TAB_CALLHISTORY', true);
 if (!defined('TAB_PROJECTINFO')) define('TAB_PROJECTINFO', true);
-if (!defined('TAB_INFO')) define('TAB_INFO', true);
+if (!defined('TAB_INFO')) define('TAB_INFO', false);
 
 /**
  * Enable a header expander for the main page to shrink/expand when not in use?
@@ -249,12 +249,12 @@ if (!defined('ALLOW_PAGE_REFRESH')) define ('ALLOW_PAGE_REFRESH',true);
 /**
  * Allow operator to select respondent from list or add respondents
  */
-if (!defined('ALLOW_RESPONDENT_SELECTOR')) define ('ALLOW_RESPONDENT_SELECTOR',true);
+if (!defined('ALLOW_RESPONDENT_SELECTOR')) define ('ALLOW_RESPONDENT_SELECTOR',false);
 
 /**
  * Display a faster alternate interface where VoIP is disabled
  */
-if (!defined('ALTERNATE_INTERFACE')) define ('ALTERNATE_INTERFACE',false);
+if (!defined('ALTERNATE_INTERFACE')) define ('ALTERNATE_INTERFACE',true);
 
 /**
  * Number of log records to display

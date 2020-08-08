@@ -168,7 +168,7 @@ else
 	
 	$rs = $db->GetAll($sql);
 
-	print "<div><a id='link1' href=\"javascript:showHide('details','link1');\">" . T_("Show details") . "</a></div>";
+	print "<div><a id='link1' href=\"javascript:showHide('details','link1');\">" . T_("Show/hide details") . "</a></div>";
 	print "<div id='details'>";
 	if (!empty($rs))
 	{

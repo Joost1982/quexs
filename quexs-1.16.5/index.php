@@ -222,10 +222,10 @@ $ref = $scr['r'];
 	<div class='box'><a href="javascript:poptastic('call.php?end=end');"><?php  echo T_("End"); ?></a></div>
 	<div class='box'><a href="javascript:poptastic('appointment.php');"><?php  echo T_("Appointment"); ?></a></div>
 	<div class='box important'><a href="javascript:poptastic('call.php');"><?php  echo T_("Call/Hangup"); ?></a></div>
-	<div class='box'><a href="javascript:poptastic('supervisor.php');"><?php  echo T_("Supervisor"); ?></a></div>
+	<!--<div class='box'><a href="javascript:poptastic('supervisor.php');"><?php  echo T_("Supervisor"); ?></a></div>-->
 	<?php if ($sc == 1) { ?><div class='box'><a href="javascript:poptastic('email.php');"><?php  echo T_("Email"); ?></a></div><?php } ?>
 	<?php if ($ref == 1) { ?><div class='box'><a href="javascript:poptastic('referral.php');"><?php  echo T_("Referral"); ?></a></div><?php } ?>
-	<div class='box' id='recbox'><a id='reclink' class='offline' href="javascript:poptastic('record.php?start=start');"><?php  echo T_("Start REC"); ?></a></div>
+	<!--<div class='box' id='recbox'><a id='reclink' class='offline' href="javascript:poptastic('record.php?start=start');"><?php  echo T_("Start REC"); ?></a></div>-->
 	<?php  if (HEADER_EXPANDER_MANUAL){ ?> <div class='headerexpand'><img id='headerexpandimage' src='./images/arrow-up-2.png' alt='<?php  echo T_('Arrow for expanding or contracting'); ?>'/></div> <?php  } ?>
 	<div class='box'><a href='index.php?'><?php  echo T_("Restart"); ?></a></div>
 </div>

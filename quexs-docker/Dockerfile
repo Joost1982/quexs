@@ -2,7 +2,10 @@
 
 FROM php:7.3-apache
 
-ENV DOWNLOAD_URL https://master.dl.sourceforge.net/project/quexs/quexs/quexs-1.16.5/quexs-1.16.5.zip
+# 20200805 horj: dit is de enige aangepaste regel. Heb aanpassingen gedaan in enkele bestanden van de oorspronkelijke code (zie github commits), 
+# zodat de interface voor de bellers gelijk is aan lokaal (waar diezelfde aanpassingen destijds ook gedaan zijn)
+# ENV DOWNLOAD_URL https://master.dl.sourceforge.net/project/quexs/quexs/quexs-1.16.5/quexs-1.16.5.zip
+ENV DOWNLOAD_URL https://github.com/Joost1982/quexs/raw/master/quexs-1.16.5.zip
 
 # install the PHP extensions we need
 RUN apt-get update && apt-get install -y mariadb-client unzip libpng-dev libjpeg-dev libfreetype6-dev && rm -rf /var/lib/apt/lists/* \
