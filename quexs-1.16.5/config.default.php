@@ -214,7 +214,7 @@ if (!defined('DEFAULT_TAB_APPOINTMENT')) define('DEFAULT_TAB_APPOINTMENT','casen
 /**
  * Show tabs?
  */
-if (!defined('TAB_CONTACTDETAILS')) define('TAB_CONTACTDETAILS', false);
+if (!defined('TAB_CONTACTDETAILS')) define('TAB_CONTACTDETAILS', true);
 if (!defined('TAB_CASENOTES')) define('TAB_CASENOTES', true);
 if (!defined('TAB_CALLLIST')) define('TAB_CALLLIST', true);
 if (!defined('TAB_SHIFTS')) define('TAB_SHIFTS', true);
